@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Available Properties</h2>
+
+<form method="get" class="filter-form">
+  <label for="location">Location:</label>
+  <input type="text" name="location" id="location" placeholder="e.g. Mumbai">
+
+  <label for="min_price">Min Price:</label>
+  <input type="number" name="min_price" id="min_price">
+
+  <label for="max_price">Max Price:</label>
+  <input type="number" name="max_price" id="max_price">
+
+  <button type="submit">Apply Filters</button>
+</form>
+
+<div class="property-list">
+  {% for prop in properties %}
+    <div class="property-card">
+      {% if prop.image %}
+        <img src="{{ url_for('static', filename='uploads/' ~ prop.image) }}" alt="{{ prop.title }}">
+      {% else %}
+        <img src="https://via.placeholder.com/300x200" alt="Placeholder">
+      {% endif %}
+      <h3>{{ prop.title }}</h3>
+      <p><strong>Location:</strong> {{ prop.location }}</p>
+      <p><strong>Price:</strong> ₹{{ prop.price }}</p>
+      <p>{{ prop.description }}</p>
+    </div>
+  {% else %}
+    <p>No properties found.</p>
+  {% endfor %}
+</div>
+{% endblock %}

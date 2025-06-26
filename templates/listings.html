@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Filter Properties</h2>
+
+<form method="GET" action="/">
+    <label>Location:</label>
+    <input type="text" name="location" placeholder="e.g. Mumbai">
+
+    <label>Min Price:</label>
+    <input type="number" name="min_price" placeholder="10000">
+
+    <label>Max Price:</label>
+    <input type="number" name="max_price" placeholder="100000">
+
+    <input type="submit" value="Apply Filters">
+</form>
+
+<hr>
+{% for property in properties %}
+    <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 20px;">
+        <h3>{{ property.title }}</h3>
+        <p><strong>Location:</strong> {{ property.location }}</p>
+        <p><strong>Price:</strong> ₹{{ property.price }}</p>
+        <p>{{ property.description }}</p>
+
+        {% if property.image %}
+            <img src="{{ url_for('static', filename='uploads/' + property.image) }}" alt="Property Image" width="300">
+        {% endif %}
+    </div>
+{% endfor %}
